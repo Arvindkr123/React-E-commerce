@@ -162,41 +162,41 @@ const cartSlice = createSlice({
     addMerchandiseToCart(state, action) {
       const merchandise = action.payload;
       state.cartChanged = true;
-      const existingMerchandise = state.cartBandMerchandise.find(
-        (item) => item.id === merchandise.id
+      const existingMerchandise = state?.cartBandMerchandise?.find(
+        (item) => item?.id === merchandise?.id
       );
       if (!existingMerchandise) {
-        state.cartBandMerchandise.push({
-          id: merchandise.id,
-          productName: merchandise.productName,
-          productPrice: merchandise.productPrice,
+        state?.cartBandMerchandise?.push({
+          id: merchandise?.id,
+          productName: merchandise?.productName,
+          productPrice: merchandise?.productPrice,
           quantity: 1,
-          productImage: merchandise.productImage,
-          productDescription: merchandise.productDescription,
+          productImage: merchandise?.productImage,
+          productDescription: merchandise?.productDescription,
         });
       } else {
-        existingMerchandise.quantity++;
+        existingMerchandise?.quantity++;
       }
     },
     removeMechandiseFromCart(state, action) {
       state.cartChanged = true;
-      const merchandise = action.payload;
+      const merchandise = action?.payload;
       if (merchandise.quantity > 1) {
-        const merchandiseIdx = state.cartBandMerchandise.findIndex(
-          (item) => item.id === merchandise.id
+        const merchandiseIdx = state?.cartBandMerchandise?.findIndex(
+          (item) => item?.id === merchandise?.id
         );
         state.cartBandMerchandise[merchandiseIdx].quantity--;
       } else {
         state.cartBandMerchandise = state.cartBandMerchandise.filter(
-          (item) => item.id !== merchandise.id
+          (item) => item?.id !== merchandise?.id
         );
       }
     },
     addAlbumsToCart(state, action) {
-      const album = action.payload;
+      const album = action?.payload;
       state.cartChanged = true;
 
-      const existingAlbum = state.cartBandAlbums.find(
+      const existingAlbum = state?.cartBandAlbums.find(
         (item) => item.id === album.id
       );
       if (!existingAlbum) {
@@ -215,7 +215,7 @@ const cartSlice = createSlice({
 
     remvoveAlbumsFromCart(state, action) {
       state.cartChanged = true;
-      const album = action.payload;
+      const album = action?.payload;
       if (album.quantity > 1) {
         const albumIdx = state.cartBandAlbums.findIndex(
           (item) => item.id === album.id
@@ -228,7 +228,7 @@ const cartSlice = createSlice({
       }
     },
     orderNow(state, action) {
-      const response = action.payload;
+      const response = action?.payload;
       state.cartChanged = true;
       state.orderList.push(response);
       state.cartBandAlbums = [];
@@ -242,7 +242,7 @@ const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getMerchandiseData.fulfilled, (state, action) => {
-      const response = action.payload.merchandise;
+      const response = action?.payload?.merchandise;
       state.isLoading = false;
       state.cartBandMerchandise = response;
       state.cartChanged = false;
@@ -252,7 +252,7 @@ const cartSlice = createSlice({
     });
 
     builder.addCase(getAlbumData.fulfilled, (state, action) => {
-      const response = action.payload.album;
+      const response = action?.payload?.album;
       state.cartChanged = false;
       state.cartBandAlbums = response;
       state.isLoading = false;
@@ -262,7 +262,7 @@ const cartSlice = createSlice({
     });
 
     builder.addCase(getOrderHistoryData.fulfilled, (state, action) => {
-      const response = action.payload.order;
+      const response = action?.payload?.order;
       state.orderList = response;
       state.cartChanged = false;
       state.isLoading = false;

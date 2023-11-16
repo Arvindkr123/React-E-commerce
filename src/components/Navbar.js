@@ -235,7 +235,7 @@ function Navbar() {
                 >
                   <Badge
                     badgeContent={
-                      cartBandMerchandise.length + cartBandAlbums.length
+                      cartBandMerchandise?.length + cartBandAlbums?.length
                     }
                     color="success"
                   >
