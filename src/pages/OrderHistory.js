@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -8,7 +9,6 @@ import {
   Grid,
   Paper,
 } from "@mui/material";
-import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSelector } from "react-redux";
 
@@ -60,49 +60,48 @@ const OrderHistory = () => {
                     </Grid>
                   </Grid>
                 </AccordionSummary>
-                {items.BandAlbums &&
-                  items.BandAlbums.map((album) => (
-                    <AccordionDetails key={album.id}>
-                      <div>
-                        <Grid container spacing={3}>
-                          <Grid item xs={3}>
-                            <span>
-                              <CardMedia
-                                sx={{
-                                  width: "50px",
-                                  height: "50px",
-                                }}
-                                component={"img"}
-                                src={album.albumImage}
-                                alt={album.albumName}
-                              />
-                            </span>
-                          </Grid>
-                          <Grid item xs={3}>
-                            <span>
-                              <h5 style={{ marginTop: "10px" }}>
-                                {album.albumName}
-                              </h5>
-                            </span>
-                          </Grid>
-                          <Grid item xs={2.1}>
-                            <span>
-                              <h5 style={{ marginTop: "10px" }}>
-                                {album.quantity}
-                              </h5>
-                            </span>
-                          </Grid>
-                          <Grid item xs={3}>
-                            <span>
-                              <h5 style={{ marginTop: "10px" }}>
-                                {album.albumPrice * album.quantity}
-                              </h5>
-                            </span>
-                          </Grid>
+                {items.BandAlbums && items.BandAlbums.map((album) => (
+                  <AccordionDetails key={album.id}>
+                    <div>
+                      <Grid container spacing={3}>
+                        <Grid item xs={3}>
+                          <span>
+                            <CardMedia
+                              sx={{
+                                width: "50px",
+                                height: "50px",
+                              }}
+                              component={"img"}
+                              src={album.albumImage}
+                              alt={album.albumName}
+                            />
+                          </span>
                         </Grid>
-                      </div>
-                    </AccordionDetails>
-                  ))}
+                        <Grid item xs={3}>
+                          <span>
+                            <h5 style={{ marginTop: "10px" }}>
+                              {album.albumName}
+                            </h5>
+                          </span>
+                        </Grid>
+                        <Grid item xs={2.1}>
+                          <span>
+                            <h5 style={{ marginTop: "10px" }}>
+                              {album.quantity}
+                            </h5>
+                          </span>
+                        </Grid>
+                        <Grid item xs={3}>
+                          <span>
+                            <h5 style={{ marginTop: "10px" }}>
+                              {album.albumPrice * album.quantity}
+                            </h5>
+                          </span>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  </AccordionDetails>
+                ))}
               </Accordion>
             ))}
             {order.map((items, index) => (
@@ -131,50 +130,48 @@ const OrderHistory = () => {
                     </Grid>
                   </Grid>
                 </AccordionSummary>
-                {items.BandMercandise &&
-                  items.BandMercandise.map((merchandise) => (
-                    <AccordionDetails key={merchandise.id}>
-                      <div>
-                        <Grid container spacing={3}>
-                          <Grid item xs={3}>
-                            <span>
-                              <CardMedia
-                                sx={{
-                                  width: "50px",
-                                  height: "50px",
-                                }}
-                                component={"img"}
-                                src={merchandise.productImage}
-                                alt={merchandise.productName}
-                              />
-                            </span>
-                          </Grid>
-                          <Grid item xs={3}>
-                            <span>
-                              <h5 style={{ marginTop: "10px" }}>
-                                {merchandise.productName}
-                              </h5>
-                            </span>
-                          </Grid>
-                          <Grid item xs={2.1}>
-                            <span>
-                              <h5 style={{ marginTop: "10px" }}>
-                                {merchandise.quantity}
-                              </h5>
-                            </span>
-                          </Grid>
-                          <Grid item xs={3}>
-                            <span>
-                              <h5 style={{ marginTop: "10px" }}>
-                                {merchandise.productPrice *
-                                  merchandise.quantity}
-                              </h5>
-                            </span>
-                          </Grid>
+                {items.BandMercandise && items.BandMercandise.map((merchandise) => (
+                  <AccordionDetails key={merchandise.id}>
+                    <div>
+                      <Grid container spacing={3}>
+                        <Grid item xs={3}>
+                          <span>
+                            <CardMedia
+                              sx={{
+                                width: "50px",
+                                height: "50px",
+                              }}
+                              component={"img"}
+                              src={merchandise.productImage}
+                              alt={merchandise.productName}
+                            />
+                          </span>
                         </Grid>
-                      </div>
-                    </AccordionDetails>
-                  ))}
+                        <Grid item xs={3}>
+                          <span>
+                            <h5 style={{ marginTop: "10px" }}>
+                              {merchandise.productName}
+                            </h5>
+                          </span>
+                        </Grid>
+                        <Grid item xs={2.1}>
+                          <span>
+                            <h5 style={{ marginTop: "10px" }}>
+                              {merchandise.quantity}
+                            </h5>
+                          </span>
+                        </Grid>
+                        <Grid item xs={3}>
+                          <span>
+                            <h5 style={{ marginTop: "10px" }}>
+                              {merchandise.productPrice * merchandise.quantity}
+                            </h5>
+                          </span>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  </AccordionDetails>
+                ))}
               </Accordion>
             ))}
           </>

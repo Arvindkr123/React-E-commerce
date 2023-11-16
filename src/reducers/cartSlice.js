@@ -155,7 +155,7 @@ const cartSlice = createSlice({
     cartBandAlbums: [],
     cartBandMerchandise: [],
     cartChanged: false,
-    orderList: [],
+    orderList: [], // Make sure orderList is initialized as an empty array
     isLoading: false,
   },
   reducers: {
@@ -230,10 +230,16 @@ const cartSlice = createSlice({
     orderNow(state, action) {
       const response = action.payload;
       state.cartChanged = true;
+
+      if (!state.orderList) {
+        state.orderList = []; // Initialize orderList if it's undefined
+      }
+
       state.orderList.push(response);
       state.cartBandAlbums = [];
       state.cartBandMerchandise = [];
     },
+
     logout(state, action) {
       state.orderList = [];
       state.cartBandAlbums = [];
