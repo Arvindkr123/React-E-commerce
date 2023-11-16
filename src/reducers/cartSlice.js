@@ -196,7 +196,7 @@ const cartSlice = createSlice({
       const album = action.payload;
       state.cartChanged = true;
 
-      const existingAlbum = state.cartBandAlbums.find(
+      const existingAlbum = state.cartBandAlbums?.find(
         (item) => item.id === album.id
       );
       if (!existingAlbum) {

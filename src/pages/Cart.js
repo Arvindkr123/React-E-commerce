@@ -105,7 +105,7 @@ const Cart = () => {
 
   return (
     <div>
-      {cartBandAlbums.length === 0 && cartBandMerchandise.length === 0 ? (
+      {cartBandAlbums?.length === 0 && cartBandMerchandise?.length === 0 ? (
         <div>
           <section
             className="h-100 h-custom"
