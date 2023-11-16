@@ -104,7 +104,7 @@ const OrderHistory = () => {
                 ))}
               </Accordion>
             ))}
-            {order.map((items, index) => (
+            {order?.map((items, index) => (
               <Accordion key={index}>
                 <AccordionSummary
                   sx={{ bgcolor: "#d7d7c1" }}
