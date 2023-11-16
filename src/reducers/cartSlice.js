@@ -28,7 +28,7 @@ const albums = [
     albumName: "Cosmic Dust",
     albumYear: 2016,
     albumArtwork:
-      "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/cosmic-dust-stars-galaxy-space-cd-cover-music-design-template-a70314645b5451b0527928a626155106_screen.jpgts=1645576028",
+      "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/cosmic-dust-stars-galaxy-space-cd-cover-music-design-template-a70314645b5451b0527928a626155106_screen.jpg?ts=1645576028",
     price: 9.99,
     quantity: 0,
   },
