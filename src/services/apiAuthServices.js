@@ -6,6 +6,8 @@ class apiAuthServices {
   static getInstance() {
     return new apiAuthServices();
   }
+
+  // this is for the signup request for the firebase
   signup = async (credentials) => {
     const response = await fetch(
       `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`,
@@ -34,6 +36,8 @@ class apiAuthServices {
       }
     }
   };
+
+  // this is request for the login user to the firebase
   login = async (credentials) => {
     const response = await fetch(
       `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`,
@@ -62,6 +66,8 @@ class apiAuthServices {
       }
     }
   };
+
+  // this for get profile data from the firebase
   getUserProfile = async () => {
     const idToken = localStorage.getItem("idToken");
     const response = await fetch(
@@ -80,6 +86,7 @@ class apiAuthServices {
     } else return;
   };
 
+  // this request for the update profile of the user
   updateProfile = async (credentials) => {
     const idToken = localStorage.getItem("idToken");
     const response = await fetch(
@@ -112,6 +119,7 @@ class apiAuthServices {
     }
   };
 
+  // this request for the forget password of the user
   forgotPassword = async (credentials) => {
     const response = await fetch(
       `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${this.apiKey}`,
@@ -130,8 +138,7 @@ class apiAuthServices {
       const data = await response.json();
       toast.success("Password reset link is sent to your mail.");
       return data;
-    }
-    {
+    } else {
       const data = await response.json();
       let errorMessage = "Authentication Failed";
       if (data && data.error && data.error.message) {

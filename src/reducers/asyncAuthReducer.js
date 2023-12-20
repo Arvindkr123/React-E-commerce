@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { apiAuthService } from "../services/apiAuthServices";
 
+// this is for the signup user
 export const userSignupAction = createAsyncThunk(
   "userSignupAction",
   async (credentials) => {
@@ -8,6 +9,8 @@ export const userSignupAction = createAsyncThunk(
     return response;
   }
 );
+
+// user login async thunk
 export const userLoginAction = createAsyncThunk(
   "userLoginAction",
   async (credentials, thunkApi) => {
@@ -18,6 +21,8 @@ export const userLoginAction = createAsyncThunk(
     return response;
   }
 );
+
+// this is get user profile data
 export const getUserProfileAction = createAsyncThunk(
   "getUserProfileAction",
   async () => {
@@ -26,6 +31,7 @@ export const getUserProfileAction = createAsyncThunk(
   }
 );
 
+// this is for the update profile async thunk
 export const updateProfileAction = createAsyncThunk(
   "updateProfileAction",
   async (credentials) => {
@@ -36,6 +42,7 @@ export const updateProfileAction = createAsyncThunk(
   }
 );
 
+// this is async thunk for the forget password
 export const forgotPasswordAction = createAsyncThunk(
   "forgotPasswordAction",
   async (credentials) => {
