@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { apiDataService } from "../services/apiDataServices";
 
+// this thunk for the adding merchandise 
 export const addMerchandiseAction = createAsyncThunk(
   "addMerchandiseAction",
   async (data) => {
@@ -8,6 +9,8 @@ export const addMerchandiseAction = createAsyncThunk(
     return response;
   }
 );
+
+// get merchandise async thunk
 export const getMerchandiseData = createAsyncThunk(
   "getMerchandsiseData",
   async (localId) => {
@@ -16,6 +19,7 @@ export const getMerchandiseData = createAsyncThunk(
   }
 );
 
+// this for the adding album data
 export const addAlbumAction = createAsyncThunk(
   "addAlbumAction",
   async (data) => {
@@ -23,6 +27,8 @@ export const addAlbumAction = createAsyncThunk(
     return response;
   }
 );
+
+// this thunk for the get album data
 export const getAlbumData = createAsyncThunk(
   "getAlbumData",
   async (localId) => {
@@ -42,6 +48,8 @@ export const addOrderHistoryAction = createAsyncThunk(
     return response;
   }
 );
+
+// thunk for the getting order history
 export const getOrderHistoryData = createAsyncThunk(
   "getOrderHistoryData",
   async (localId) => {

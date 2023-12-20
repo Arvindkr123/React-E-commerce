@@ -4,6 +4,8 @@ import {
   getMerchandiseData,
   getOrderHistoryData,
 } from "./asyncDataReducer";
+
+// this is albums data
 const albums = [
   {
     id: "001",
@@ -51,6 +53,8 @@ const albums = [
     quantity: 0,
   },
 ];
+
+// this is the tour details data
 const tourDetails = [
   {
     id: "001",
@@ -86,6 +90,8 @@ const tourDetails = [
       "We're heating things up this winter with a tour that will take us to some of the most iconic venues in the country. Come out and celebrate the season with us!",
   },
 ];
+
+// this is merchandise data
 const merchandise = [
   {
     id: "001",
@@ -146,25 +152,32 @@ const merchandise = [
   },
 ];
 
+// now create the cart slice
 const cartSlice = createSlice({
+  // this is the name of the cart slice
   name: "cart",
+  // this is the initialstate of the cart
   initialState: {
-    bandAlbums: albums,
-    bandTourDetails: tourDetails,
-    bandMerchandise: merchandise,
-    cartBandAlbums: [],
-    cartBandMerchandise: [],
-    cartChanged: false,
+    bandAlbums: albums, // is a state
+    bandTourDetails: tourDetails, // tour details is state
+    bandMerchandise: merchandise, // merchandise is also state
+    cartBandAlbums: [], // cart band albums
+    cartBandMerchandise: [], // cart merchandise
+    cartChanged: false, // this is for the cart changed or not
     orderList: [], // Make sure orderList is initialized as an empty array
-    isLoading: false,
+    isLoading: false, // check the loading state true or false
   },
   reducers: {
+    // now start adding reducers
+    // 1 is addMerchandies to the cart
     addMerchandiseToCart(state, action) {
-      const merchandise = action.payload;
-      state.cartChanged = true;
+      const merchandise = action.payload; // getting payload from the list
+      state.cartChanged = true; // make the true
+      // check if there is already that id values exits checking that...
       const existingMerchandise = state?.cartBandMerchandise.find(
         (item) => item.id === merchandise.id
       );
+      // if merchandise is not then set quantity to 1
       if (!existingMerchandise) {
         state.cartBandMerchandise.push({
           id: merchandise.id,
@@ -175,31 +188,43 @@ const cartSlice = createSlice({
           productDescription: merchandise.productDescription,
         });
       } else {
+        // increase the quantity
         existingMerchandise.quantity++;
       }
     },
+
+    // remove the merchandise from the cart
     removeMechandiseFromCart(state, action) {
-      state.cartChanged = true;
-      const merchandise = action.payload;
+      state.cartChanged = true; // make the true 
+      const merchandise = action.payload; // got the payload
+      // check if quantity is greater than 1. then remove that one
       if (merchandise.quantity > 1) {
+        // here finding the index of that item
         const merchandiseIdx = state.cartBandMerchandise.findIndex(
           (item) => item.id === merchandise.id
         );
+        // now decrease the quantity of the item
         state.cartBandMerchandise[merchandiseIdx].quantity--;
       } else {
+        // remove the item from the the cart
         state.cartBandMerchandise = state.cartBandMerchandise.filter(
           (item) => item.id !== merchandise.id
         );
       }
     },
-    addAlbumsToCart(state, action) {
-      const album = action.payload;
-      state.cartChanged = true;
 
+    // now add albums to the cart
+    addAlbumsToCart(state, action) {
+      const album = action.payload; // get the payload from list
+      state.cartChanged = true; // state changed
+
+      // finding that item
       const existingAlbum = state.cartBandAlbums?.find(
         (item) => item.id === album.id
       );
-      if (!existingAlbum) {
+      // if existing album  is not present the just make quantity to 1
+      if (!existingAlbum) { 
+        // set the data accordingly
         state.cartBandAlbums.push({
           id: album.id,
           albumName: album.albumName,
@@ -209,70 +234,85 @@ const cartSlice = createSlice({
           albumYear: album.albumYear,
         });
       } else {
+        // increased quantity ++
         existingAlbum.quantity++;
       }
     },
 
+    // now remove ablbums from the cart
     remvoveAlbumsFromCart(state, action) {
-      state.cartChanged = true;
-      const album = action.payload;
+      state.cartChanged = true;  // state is changed
+      const album = action.payload; // get the payload 
       if (album.quantity > 1) {
+        // find the index of that item
         const albumIdx = state.cartBandAlbums.findIndex(
           (item) => item.id === album.id
         );
+        // just decrease the quantity
         state.cartBandAlbums[albumIdx].quantity--;
       } else {
+        // remove the item from the cart
         state.cartBandAlbums = state.cartBandAlbums.filter(
           (item) => item.id !== album.id
         );
       }
     },
+
+    // now order start 
     orderNow(state, action) {
-      const response = action.payload;
+      const response = action.payload; // get the payload
       state.cartChanged = true;
 
       if (!state.orderList) {
         state.orderList = []; // Initialize orderList if it's undefined
       }
-
+      // if orderlist exist then push data the to order 
       state.orderList.push(response);
-      state.cartBandAlbums = [];
-      state.cartBandMerchandise = [];
+      state.cartBandAlbums = []; // or make the cartband album empty
+      state.cartBandMerchandise = []; // same with merchandise
     },
 
     logout(state, action) {
-      state.orderList = [];
-      state.cartBandAlbums = [];
-      state.cartBandMerchandise = [];
+      state.orderList = []; // make the orderList empty
+      state.cartBandAlbums = []; // make the cartband album empty
+      state.cartBandMerchandise = []; // make  the cart marchandise empty
     },
   },
+
+  // started extra reducers
   extraReducers: (builder) => {
+    // first one for the get merchandise data if fullfilled
     builder.addCase(getMerchandiseData.fulfilled, (state, action) => {
       const response = action.payload.merchandise;
       state.isLoading = false;
       state.cartBandMerchandise = response;
       state.cartChanged = false;
     });
+    // for the pending merchandise 
     builder.addCase(getMerchandiseData.pending, (state, action) => {
       state.isLoading = true;
     });
 
+    // get the album data 
     builder.addCase(getAlbumData.fulfilled, (state, action) => {
       const response = action.payload.album;
       state.cartChanged = false;
       state.cartBandAlbums = response;
       state.isLoading = false;
     });
+    // for the pending case
     builder.addCase(getAlbumData.pending, (state, action) => {
       state.isLoading = true;
     });
 
+    // get the order history data
     builder.addCase(getOrderHistoryData.fulfilled, (state, action) => {
       const response = action.payload.order;
       state.orderList = response;
       state.cartChanged = false;
       state.isLoading = false;
     });
+    // for the pending case
     builder.addCase(getOrderHistoryData.pending, (state, action) => {
       state.isLoading = true;
     });

@@ -7,6 +7,7 @@ class apiDataServices {
     return new apiDataServices();
   }
 
+  // adding posting merchandise request to firebase server
   postMerchandiseData = async (data) => {
     try {
       const response = await axios.put(
@@ -18,6 +19,7 @@ class apiDataServices {
     } catch {}
   };
 
+  // request for the add add post album data
   postAlbumData = async (data) => {
     try {
       const response = await axios.put(
@@ -31,6 +33,7 @@ class apiDataServices {
     }
   };
 
+  // this is for add order history 
   postOrderHistoryData = async (data) => {
     try {
       const response = await axios.put(
@@ -42,6 +45,7 @@ class apiDataServices {
     } catch {}
   };
 
+  // this is request for the get merchandise data
   getMerchandiseData = async (localId) => {
     try {
       const response = await axios.get(
@@ -53,6 +57,7 @@ class apiDataServices {
     }
   };
 
+  // request for the get the album data from firebase server
   getAlbumData = async (localId) => {
     try {
       const response = await axios.get(
@@ -64,6 +69,7 @@ class apiDataServices {
     }
   };
 
+  // request for the get order data from firebase server
   getOrderData = async (localId) => {
     try {
       const response = await axios.get(
