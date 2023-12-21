@@ -11,13 +11,27 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userSignUpAction } from "../../reducers/asyncAuthReducer";
 const theme = createTheme();
 
 const SignUpPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const loginPageHandler = () => {
     navigate("/login");
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const userCredentials = {
+      email: data.get("email"),
+      password: data.get("password"),
+    };
+    dispatch(userSignUpAction(userCredentials));
+    navigate("/login");
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -57,7 +71,7 @@ const SignUpPage = () => {
             <Box
               component="form"
               noValidate
-              // onSubmit={handleSubmit}
+              onSubmit={handleSubmit}
               sx={{ mt: 1 }}
             >
               <TextField

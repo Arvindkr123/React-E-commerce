@@ -11,16 +11,29 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userLoginAction } from "../../reducers/asyncAuthReducer";
 const theme = createTheme();
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const signUpPageHandler = () => {
     navigate("/signup");
   };
 
   const forgotPasswardHandler = () => {
     navigate("/forgotPassword");
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const userCredentials = {
+      email: data.get("email"),
+      password: data.get("password"),
+    };
+    dispatch(userLoginAction(userCredentials));
   };
 
   return (
@@ -57,12 +70,12 @@ const LoginPage = () => {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Create account
+              SignIn
             </Typography>
             <Box
               component="form"
               noValidate
-              // onSubmit={handleSubmit}
+              onSubmit={handleSubmit}
               sx={{ mt: 1 }}
             >
               <TextField
@@ -91,7 +104,7 @@ const LoginPage = () => {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Create Account
+                SignIn
               </Button>
               <Grid container>
                 <Grid item xs>
