@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,17 +11,25 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userLoginAction } from "../../reducers/asyncAuthReducer";
 const theme = createTheme();
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const userProfileData = useSelector((state) => state.auth?.userProfileData);
+  console.log(userProfileData);
+  useEffect(() => {
+    if (userProfileData) {
+      navigate("/");
+    }
+  }, [userProfileData]);
+
   const signUpPageHandler = () => {
     navigate("/signup");
   };
-
   const forgotPasswardHandler = () => {
     navigate("/forgotPassword");
   };

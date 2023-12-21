@@ -1,3 +1,4 @@
 import SignUpPage from "./SignUp/SignUpPage";
 import LoginPage from "./Login/LoginPage.jsx";
-export { SignUpPage, LoginPage };
+import ForgetPasswordPage from "./ForgetPassword/ForgetPasswordPage.jsx";
+export { SignUpPage, LoginPage, ForgetPasswordPage };

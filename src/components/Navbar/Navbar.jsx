@@ -15,13 +15,14 @@ import { Grid } from "@mui/material";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
 export default function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const userProfileData = false;
+  const userProfileData = useSelector((state) => state.auth.userProfileData);
+  // console.log(userProfileData);
   const navigate = useNavigate();
   // const dispatch = useDispatch();
 
@@ -49,7 +50,7 @@ export default function Navbar() {
   // about page handler function
   const aboutPageHandler = () => {
     navigate("/about");
-    // handleCloseNavMenu();
+    handleCloseNavMenu();
   };
 
   // sign in page handler
@@ -185,23 +186,25 @@ export default function Navbar() {
             >
               Home
             </Button>
-            <Button
-              textAlign="center"
-              sx={{
-                my: 2,
-                color: "white",
-                display: "block",
-                "&:hover": {
-                  borderBottom: "2px solid",
-                },
-                "&:selection": {
-                  borderBottom: "2px solid",
-                },
-              }}
-              onClick={storePageHandler}
-            >
-              Store
-            </Button>
+            {userProfileData && (
+              <Button
+                textAlign="center"
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  "&:hover": {
+                    borderBottom: "2px solid",
+                  },
+                  "&:selection": {
+                    borderBottom: "2px solid",
+                  },
+                }}
+                onClick={storePageHandler}
+              >
+                Store
+              </Button>
+            )}
             <Button
               onClick={aboutPageHandler}
               sx={{
@@ -253,11 +256,17 @@ export default function Navbar() {
                   </Box>
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      {/* <Avatar alt="Remy Sharp" /> */}
-                      <Avatar
-                        alt="Arvind Kumar"
-                        src="/static/images/avatar/2.jpg"
-                      />
+                      {userProfileData !== undefined ? (
+                        <Avatar
+                          alt="Arvind Kumar"
+                          src={userProfileData.photoUrl}
+                        />
+                      ) : (
+                        <Avatar
+                          alt="Arvind Kumar"
+                          src="/static/images/avatar/2.jpg"
+                        />
+                      )}
                     </IconButton>
                   </Tooltip>
                 </Grid>
@@ -290,7 +299,9 @@ export default function Navbar() {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Profile</Typography>
+                <Typography onClick={userProfileHandler} textAlign="center">
+                  Profile
+                </Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
                 <Typography onClick={orderHistoryHandler} textAlign="center">
